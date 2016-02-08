@@ -1,0 +1,12 @@
+PODS:
+  - DOFavoriteButton (0.0.4)
+
+DEPENDENCIES:
+  - DOFavoriteButton
+
+SPEC CHECKSUMS:
+  DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
+
+PODFILE CHECKSUM: 93d8e459eff9b04db4293f34eac70d0ce828df2f
+
+COCOAPODS: 1.0.0.beta.2

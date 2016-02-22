@@ -30,8 +30,7 @@ class PostTableViewCell: UITableViewCell
     @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var postTextLabel: UILabel!
     @IBOutlet weak var likeButton: DesignableButton!
-    @IBOutlet weak var commentButton: DesignableButton!
-    
+   
     // MARK: - Private
     
     private func updateUI()
@@ -50,17 +49,10 @@ class PostTableViewCell: UITableViewCell
         createdAtLabel?.text = NSDate.shortStringFromDate(post.createdAt!)
         postTextLabel?.text = post.postText
 
-        post.postImageFile?.getDataInBackgroundWithBlock { (data, error) -> Void in
-            if error == nil {
-                if let imageData = data {
-                    self.postImageView.image = UIImage(data: imageData)!
-                }
-            }
-        }
+        
+        
         
         // rounded post image view, user profile image
-        postImageView?.layer.cornerRadius = 5.0
-        postImageView?.layer.masksToBounds = true
         
         userProfileImageView?.layer.cornerRadius = userProfileImageView.bounds.width / 2
         userProfileImageView?.layer.masksToBounds = true
@@ -82,9 +74,7 @@ class PostTableViewCell: UITableViewCell
     
         likeButton.setImage(setImage, forState: .Normal)
         
-        commentButton?.cornerRadius = 3.0
-        commentButton?.borderWidth = 2.0
-        commentButton?.borderColor = UIColor.lightGrayColor()
+
     }
     
     @IBAction func likeButtonClicked(sender: DesignableButton)
@@ -127,18 +117,6 @@ class PostTableViewCell: UITableViewCell
         return false
     }
     
-    @IBAction func commentButtonClicked(sender: DesignableButton)
-    {
-        // animation
-        sender.animation = "pop"
-        sender.curve = "spring"
-        sender.duration = 1.5
-        sender.damping = 0.1
-        sender.velocity = 0.2
-        sender.animate()
-        
-        delegate?.commentButtonClicked(post)
-    }
     
 }
 

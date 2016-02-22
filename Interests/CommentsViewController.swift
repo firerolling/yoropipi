@@ -114,25 +114,13 @@ extension CommentsViewController : UITableViewDataSource
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         // CHALLENGE: - configure the post cell
-        if indexPath.row == 0 {
-            if post.postImageFile == nil {
-                // main post cell
-                let cell = tableView.dequeueReusableCellWithIdentifier("PostCellWithoutImage", forIndexPath: indexPath) as! PostTableViewCell
-                cell.post = post
-                return cell
-            } else {
-                // main post cell
-                let cell = tableView.dequeueReusableCellWithIdentifier("PostCellWithImage", forIndexPath: indexPath) as! PostTableViewCell
-                cell.post = post
-                return cell
-            }
-        } else {
+        
             let cell = tableView.dequeueReusableCellWithIdentifier("Comment Cell", forIndexPath: indexPath) as! CommentTableViewCell
             cell.comment = self.comments[indexPath.row - 1]
             return cell
         }
     }
-}
+
 
 
 

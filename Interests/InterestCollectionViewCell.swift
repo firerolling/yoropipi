@@ -21,10 +21,19 @@ class InterestCollectionViewCell: UICollectionViewCell
     
     @IBOutlet weak var featuredImageView: UIImageView!
     @IBOutlet weak var interestTitleLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    
+    
     
     private func updateUI()
+        
+        
     {
-        interestTitleLabel?.text! = interest.title
+        
+        
+        interestTitleLabel?.text! = interest.title!
+        usernameLabel.text = interest.createdUser
         
         interest.featuredImageFile.getDataInBackgroundWithBlock { (imageData, error) -> Void in
             if error == nil {
@@ -33,8 +42,10 @@ class InterestCollectionViewCell: UICollectionViewCell
                 }
             } else {
                 print("\(error?.localizedDescription)")
-            }
+    
         }
+    }
+        
     }
     
     override func layoutSubviews() {

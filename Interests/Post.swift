@@ -15,32 +15,30 @@ public class Post: PFObject, PFSubclassing
     // MARK: - Public API
     
     @NSManaged public var user: PFUser // must use PFUser
-    @NSManaged public var postImageFile: PFFile!
     @NSManaged public var postText: String
     @NSManaged public var numberOfLikes: Int
     @NSManaged public var interestId: String!
     @NSManaged public var likedUserIds: [String]!
+    @NSManaged public var isSelected: Bool
     
     // MARK: - Create new post
     override init() {
         super.init()
     }
     
-    init(user: PFUser, postImage: UIImage!, postText: String, numberOfLikes: Int, interestId: String)
+    init(user: PFUser, postText: String, numberOfLikes: Int, interestId: String, isSelected: Bool)
     {
         super.init()
-        
-        if postImage != nil {
-            postImageFile = createFileFrom(postImage)
-        } else {
-            postImageFile = nil
-        }
-        
+            
         self.user = user
         self.postText = postText
+        self
         self.numberOfLikes = numberOfLikes
         self.interestId = interestId
         self.likedUserIds = [String]()
+        self.isSelected = isSelected
+        
+        
     }
     
     // MARK: - Like / Dislike

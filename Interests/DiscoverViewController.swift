@@ -111,9 +111,8 @@ class DiscoverViewController: UIViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Show Discover Interest" {
             let navVC = segue.destinationViewController as! UINavigationController
-            let interestVC = navVC.topViewController as! InterestViewController
-            interestVC.interest = sender as! Interest
-            navVC.transitioningDelegate = popTransitionAnimator
+            let interestVC = navVC.topViewController as! TutorialViewController
+            
         }
     }
 

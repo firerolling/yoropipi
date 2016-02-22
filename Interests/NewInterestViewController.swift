@@ -146,14 +146,18 @@ class NewInterestViewController: UIViewController
     func createNewInterest()
     {
         let featuredImageFile = createFileFrom(self.featuredImage)
+        let currentUser = "\(PFUser.currentUser()?.objectId)"
         
-        let newInterest = Interest(title: newInterestTitleTextField.text!, interestDescription: newInterestDescriptionTextView.text!, imageFile: featuredImageFile, numberOfMembers: 1, numberOfPosts: 0)
+        let newInterest = Interest(title: newInterestTitleTextField.text!, interestDescription: newInterestDescriptionTextView.text!, imageFile: featuredImageFile, numberOfMembers: 1, numberOfChats: 0, numberOfPlaces: 0, numberOfPosts: 0, createdUser: currentUser, isDesided: false, placeIsDesided: false, selectedDate: "", selectedPlace: "", selectedUrl: "")
         
         newInterest.saveInBackgroundWithBlock({ (success, error) -> Void in
             if error == nil {
                 // success
                 // update the current user's interestIds
                 let currentUser = User.currentUser()!
+                if(currentUser.interestIds == nil){
+                    currentUser.interestIds = []
+                }
                 currentUser.joinInterest(newInterest.objectId!)
                 
                 let center = NSNotificationCenter.defaultCenter()

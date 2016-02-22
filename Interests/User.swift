@@ -11,7 +11,7 @@ import Parse
 
 public class User: PFUser
 {
-    @NSManaged public var interestIds: [String]!
+    @NSManaged public var interestIds: [String]! 
     @NSManaged public var profileImageFile: PFFile!
     
     public func isMemberOf(interestId: String) -> Bool {

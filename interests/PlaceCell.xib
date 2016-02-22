@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="PlaceCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceCell" rowHeight="100" id="KGk-i7-Jjw" customClass="PlaceCell" customModule="Interests" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="412" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="412" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iub-Ec-H1F">
+                        <rect key="frame" x="8" y="8" width="396" height="84"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8T-vE-HL3">
+                                <rect key="frame" x="80" y="0.0" width="246" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7IF-gB-HJ5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1e-9C-CmM">
+                                <rect key="frame" x="80" y="34" width="246" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="I10-cl-sg5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="S8T-vE-HL3" secondAttribute="trailing" constant="70" id="7Sc-wS-1Gy"/>
+                            <constraint firstItem="S8T-vE-HL3" firstAttribute="leading" secondItem="iub-Ec-H1F" secondAttribute="leading" constant="80" id="DVd-8N-4VU"/>
+                            <constraint firstAttribute="bottom" secondItem="l1e-9C-CmM" secondAttribute="bottom" id="Uvd-cQ-owl"/>
+                            <constraint firstAttribute="trailing" secondItem="l1e-9C-CmM" secondAttribute="trailing" constant="70" id="Xgx-LP-FIn"/>
+                            <constraint firstItem="S8T-vE-HL3" firstAttribute="top" secondItem="iub-Ec-H1F" secondAttribute="top" id="keL-JR-SpM"/>
+                            <constraint firstItem="l1e-9C-CmM" firstAttribute="leading" secondItem="iub-Ec-H1F" secondAttribute="leading" constant="80" id="o0V-cu-E1h"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="iub-Ec-H1F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4yC-1t-1PC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="iub-Ec-H1F" secondAttribute="bottom" id="Dar-RR-Q08"/>
+                    <constraint firstItem="iub-Ec-H1F" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Feb-8m-2I2"/>
+                    <constraint firstItem="iub-Ec-H1F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="amF-UG-24j"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mask" destination="iub-Ec-H1F" id="TdT-Jt-4vv"/>
+                <outlet property="placeLabel" destination="S8T-vE-HL3" id="VtL-hr-5yX"/>
+                <outlet property="urlLabel" destination="l1e-9C-CmM" id="Nq8-5d-dfs"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

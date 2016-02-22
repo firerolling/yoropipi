@@ -21,6 +21,8 @@ class NewInterestViewController: UIViewController
     @IBOutlet weak var closeButton: UIButton!
     
     @IBOutlet weak var newInterestTitleTextField: DesignableTextField!
+    
+    @IBOutlet weak var newInterestPlacesTextField: DesignableTextField!
     @IBOutlet weak var newInterestDescriptionTextView: UITextView!
     @IBOutlet weak var createNewInterestButton: DesignableButton!
     @IBOutlet weak var selectFeaturedImageButton: DesignableButton!
@@ -148,7 +150,7 @@ class NewInterestViewController: UIViewController
         let featuredImageFile = createFileFrom(self.featuredImage)
         let currentUser = "\(PFUser.currentUser()?.objectId)"
         
-        let newInterest = Interest(title: newInterestTitleTextField.text!, interestDescription: newInterestDescriptionTextView.text!, imageFile: featuredImageFile, numberOfMembers: 1, numberOfChats: 0, numberOfPlaces: 0, numberOfPosts: 0, createdUser: currentUser, isDesided: false, placeIsDesided: false, selectedDate: "", selectedPlace: "", selectedUrl: "")
+        let newInterest = Interest(title: newInterestTitleTextField.text!, interestDescription: newInterestDescriptionTextView.text!, places: newInterestPlacesTextField.text!, imageFile: featuredImageFile, numberOfMembers: 1, numberOfChats: 0, numberOfPlaces: 0, numberOfPosts: 0, createdUser: currentUser, isDesided: false, placeIsDesided: false, selectedDate: "", selectedPlace: "", selectedUrl: "")
         
         newInterest.saveInBackgroundWithBlock({ (success, error) -> Void in
             if error == nil {
@@ -267,29 +269,6 @@ extension NewInterestViewController : UIImagePickerControllerDelegate, UINavigat
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

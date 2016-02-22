@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import Parse
 import ParseUI
-
+import JavaScriptCore
 
 class HomeViewController: UIViewController
 {
@@ -50,12 +50,20 @@ class HomeViewController: UIViewController
     private var popTransitionAnimator = PopTransitionAnimator()
     private var slideRightThenPop = SlideRightThenPopTransitionAnimator()
     
+    
+    
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
+       
+                
+
         
         if PFUser.currentUser() == nil {
             // the user hasn't logged in yet
@@ -80,6 +88,7 @@ class HomeViewController: UIViewController
             disp()
             
         }
+        
     }
     
     func disp(){
@@ -220,22 +229,28 @@ class HomeViewController: UIViewController
         }
         return false
     }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
+<<<<<<< HEAD
         
 
 
+=======
+>>>>>>> dc6bdf8ef832d57e656c64783264ccd1bd698566
         // Do any additional setup after loading the view.
         if UIScreen.mainScreen().bounds.size.height == 480.0 {
             let flowLayout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
             flowLayout.itemSize = CGSizeMake(250.0, 300.0)
         }
+    
+        
         
         configureUserProfile()
     }
     
+<<<<<<< HEAD
     func tapped(sender: UIButton) {
         self.profileBackView.removeFromSuperview()
     }
@@ -348,6 +363,9 @@ class HomeViewController: UIViewController
     }
 
 
+=======
+    
+>>>>>>> dc6bdf8ef832d57e656c64783264ccd1bd698566
     
     func configureUserProfile()
     {

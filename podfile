@@ -4,9 +4,23 @@
  use_frameworks!
 
 target 'Interests' do
+
 pod 'DOFavoriteButton'
 pod 'ChameleonFramework/Swift'
 pod 'SCLAlertView'
+
+
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+pod "AFNetworking", "~> 2.5"
+
+pod "BDBOAuth1Manager"
+
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.1'
+pod 'GoogleMaps'
+
+
 end
 
 target 'InterestsTests' do
@@ -16,4 +30,5 @@ end
 target 'InterestsUITests' do
 
 end
+
 

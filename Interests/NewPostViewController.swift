@@ -115,23 +115,12 @@ class NewPostViewController: UIViewController {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+extension NewPostViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
+    {
+        self.postImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
 

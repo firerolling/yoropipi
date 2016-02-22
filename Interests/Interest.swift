@@ -14,6 +14,7 @@ public class Interest: PFObject, PFSubclassing
     // MARK: - Public API
     @NSManaged public var title: String!
     @NSManaged public var interestDescription: String!
+    @NSManaged public var interestPlaces: String!
     @NSManaged public var numberOfMembers: Int
     @NSManaged public var numberOfPosts: Int
     @NSManaged public var numberOfPlaces: Int
@@ -57,11 +58,15 @@ public class Interest: PFObject, PFSubclassing
     
     // MARK: - Convience init
     
-    init(title: String, interestDescription: String, imageFile: PFFile, numberOfMembers: Int, numberOfChats: Int, numberOfPlaces: Int, numberOfPosts: Int, createdUser: String, isDesided: Bool, placeIsDesided: Bool, selectedDate: String, selectedPlace: String, selectedUrl: String)
+
+    init(title: String, interestDescription: String, places: String, imageFile: PFFile, numberOfMembers: Int, numberOfChats: Int, numberOfPlaces: Int, numberOfPosts: Int, createdUser: String, isDesided: Bool, placeIsDesided: Bool, selectedDate: String, selectedPlace: String, selectedUrl: String)
+
     {
         super.init()
         self.title = title
         self.interestDescription = interestDescription
+        self.interestPlaces = places
+        
         self.featuredImageFile = imageFile
         self.numberOfMembers = numberOfMembers
         self.numberOfPosts = numberOfPosts

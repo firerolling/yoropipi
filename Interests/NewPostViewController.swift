@@ -165,24 +165,3 @@ extension NewPostViewController : UIImagePickerControllerDelegate, UINavigationC
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

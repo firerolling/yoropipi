@@ -1,12 +1,20 @@
 PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
   - DOFavoriteButton (0.0.4)
+  - SCLAlertView (0.5.1)
 
 DEPENDENCIES:
+  - ChameleonFramework/Swift
   - DOFavoriteButton
+  - SCLAlertView
 
 SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
+  SCLAlertView: 3ac39a863d3e10fc165662b1228b03402297aea9
 
-PODFILE CHECKSUM: 93d8e459eff9b04db4293f34eac70d0ce828df2f
+PODFILE CHECKSUM: 6c9e2237fe84bc58040c67d3b333e1bab4bd8f76
 
 COCOAPODS: 1.0.0.beta.2

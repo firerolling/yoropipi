@@ -18,9 +18,7 @@ class NewPostViewController: UIViewController {
     @IBOutlet weak var currentUserProfileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var postContentTextView: UITextView!
-    @IBOutlet weak var postImageView: UIImageView!
-    
-    private var postImage: UIImage! // use this one to store post image - send it to Parse
+
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -85,51 +83,6 @@ class NewPostViewController: UIViewController {
     
     // MARK: - Pick Featured Image
    
-    @IBAction func pickFeaturedImageClicked(sender: UITapGestureRecognizer)
-    {
-        let authorization = PHPhotoLibrary.authorizationStatus()
-        
-        if authorization == .NotDetermined {
-            PHPhotoLibrary.requestAuthorization({ (status) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.pickFeaturedImageClicked(sender)
-                })
-            })
-            return
-        }
-        
-        if authorization == .Authorized {
-            let controller = ImagePickerSheetController()
-            
-            controller.addAction(ImageAction(title: NSLocalizedString("Take Photo or Video", comment: "ActionTitle"),
-                secondaryTitle: NSLocalizedString("Use this one", comment: "Action Title"),
-                handler: { (_) -> () in
-                    
-                    self.presentCamera()
-                    
-                }, secondaryHandler: { (action, numberOfPhotos) -> () in
-                    controller.getSelectedImagesWithCompletion({ (images) -> Void in
-                        self.postImage = images[0]
-                        self.postImageView.image = self.postImage
-                    })
-            }))
-            
-            controller.addAction(ImageAction(title: NSLocalizedString("Cancel", comment: "Action Title"), style: .Cancel, handler: nil, secondaryHandler: nil))
-            
-            presentViewController(controller, animated: true, completion: nil)
-        }
-    }
-    
-    func presentCamera()
-    {
-        // CHALLENGE: present normla image picker controller
-        //              update the postImage + postImageView
-        let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = false
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(imagePicker, animated: true, completion: nil)
-    }
     
     @IBAction func dismiss()
     {
@@ -141,11 +94,14 @@ class NewPostViewController: UIViewController {
     {
         uploadNewPost()
         postContentTextView.resignFirstResponder()
+        
     }
     
     func uploadNewPost()
     {
-        let newPost = Post(user: PFUser.currentUser()!, postImage: postImage, postText: postContentTextView.text, numberOfLikes: 0, interestId: interest.objectId!)
+        
+        let currentUser = PFUser.currentUser()!
+        let newPost = Post(user: currentUser, postText: postContentTextView.text, numberOfLikes: 0, interestId: interest.objectId!, isSelected: false)
         newPost.saveInBackgroundWithBlock { (success, error) -> Void in
             if error == nil {
                 self.interest.incrementNumberOfPosts()
@@ -153,18 +109,11 @@ class NewPostViewController: UIViewController {
                 print("\(error?.localizedDescription)")
             }
             self.dismissViewControllerAnimated(true, completion: nil)
+            
         }
     }
 }
 
-extension NewPostViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate
-{
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
-    {
-        self.postImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        picker.dismissViewControllerAnimated(true, completion: nil)
-    }
-}
 
 
 

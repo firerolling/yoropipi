@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Interests/ChameleonFramework.framework"
   install_framework "Pods-Interests/DOFavoriteButton.framework"
+  install_framework "Pods-Interests/SCLAlertView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Interests/ChameleonFramework.framework"
   install_framework "Pods-Interests/DOFavoriteButton.framework"
+  install_framework "Pods-Interests/SCLAlertView.framework"
 fi

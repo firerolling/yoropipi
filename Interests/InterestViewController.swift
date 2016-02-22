@@ -15,16 +15,24 @@ class InterestViewController: UIViewController {
     // MARK: - Public API
     var interest: Interest!
     
+    
+    
+  
+    
+
     // MARK: - Private
     @IBOutlet weak var tableView: UITableView!
-    private let tableHeaderHeight: CGFloat = 350.0
-    private let tableHeaderCutAway: CGFloat = 50.0
+    private let tableHeaderHeight: CGFloat = 300.0
+    private let tableHeaderCutAway: CGFloat = 0.0
     
     private var headerView: InterestHeaderView!
     private var headerMaskLayer: CAShapeLayer!
     
     // Datasource
     private var posts = [Post]()
+    
+    private var
+    max:Int = 0
     
     private var newPostButton: ActionButton!
     
@@ -33,18 +41,33 @@ class InterestViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        
+        
+        
         fetchPosts()
+        updateHeaderView()
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("aninin")
         
-        tableView.estimatedRowHeight = 387.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        interest = appDelegate.interest
+        
+//        tableView.estimatedRowHeight = 387.0
+//        tableView.rowHeight = UITableViewAutomaticDimension
         
         headerView = tableView.tableHeaderView as! InterestHeaderView
         headerView.delegate = self
         headerView.interest = interest
+    
+        
+        
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
@@ -55,11 +78,68 @@ class InterestViewController: UIViewController {
         headerMaskLayer = CAShapeLayer()
         headerMaskLayer.fillColor = UIColor.blackColor().CGColor
         headerView.layer.mask = headerMaskLayer
-        
+
         updateHeaderView()
+        
         createNewPostButton()
+    
+        let nib:UINib = UINib(nibName: "DisplayCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DisplayCell")
+    
         
         fetchPosts()
+        
+        print("うううう")
+        updateHeaderView()
+        
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapButton:", name: "BUTTON", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectDate:", name: "SELECTDATE", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "deselect:", name: "deselect", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "redeside:", name: "REDESIDE", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "redesidetapped:", name: "redesidetapped", object: nil)
+        }
+    
+    
+    func redeside(sender: UIButton){
+        fetchPosts()
+        self.tableView.reloadData()
+
+    }
+    
+    func redesidetapped(sender: UIButton) {
+        
+        interest.isDesided = false
+        interest.saveInBackground()
+       
+        self.tableView.reloadData()
+    }
+    
+    func deselect(sender: UIButton){
+        self.tableView.reloadData()
+    }
+    
+    func selectDate(notification: NSNotification?){
+        
+        self.tableView.reloadData()
+        if let userInfo = notification?.userInfo {
+            let selectDate = userInfo["selectdate"]! as! String
+            print(selectDate)
+            interest.selectedDate = selectDate
+            interest.isDesided = true
+            interest.saveInBackground()
+        }
+        print("あい")
+        
+        updateHeaderView()
+        self.tableView.reloadData()
+        
+    }
+    
+    func didTapButton(sender:UIButton!) {
+        print("受け取りました")
+        tableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -87,7 +167,9 @@ class InterestViewController: UIViewController {
         }
         
         headerView.frame = headerRect
+        headerView.updateUI()
         
+               
         // cut away
         let path = UIBezierPath()
         path.moveToPoint(CGPoint(x: 0, y: 0))
@@ -98,13 +180,21 @@ class InterestViewController: UIViewController {
         
     }
     
+    
+
+    
     func fetchPosts()
+        
+        
     {
         let interestId = interest.objectId!
         let query = PFQuery(className: Post.parseClassName())
+        print("aa")
+       
+       print("bb")
         query.cachePolicy = PFCachePolicy.NetworkElseCache
         query.whereKey("interestId", equalTo: interestId)
-        query.orderByDescending("createdAt")
+        query.orderByDescending("numberOfLikes")
         query.includeKey("user")
         
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
@@ -121,7 +211,10 @@ class InterestViewController: UIViewController {
                 print("\(error?.localizedDescription)")
             }
         }
+        
     }
+    
+
     
     func createNewPostButton()
     {
@@ -131,6 +224,8 @@ class InterestViewController: UIViewController {
         }
         // set the button's backgroundColor
     }
+    @IBAction func Arrange(sender: AnyObject) {
+    }
     
     // MARK: - Navigation
     
@@ -139,11 +234,12 @@ class InterestViewController: UIViewController {
             let commentsVC = segue.destinationViewController as! CommentsViewController
             commentsVC.post = sender as! Post
         } else if segue.identifier == "Show Post Composer" {
-            let postComposer = segue.destinationViewController as! NewPostViewController
+            let postComposer = segue.destinationViewController as! ViewController
             postComposer.interest = interest
-        }
+       
     }
     
+}
 }
 
 extension InterestViewController : UITableViewDataSource
@@ -163,28 +259,43 @@ extension InterestViewController : UITableViewDataSource
     {
         let post = posts[indexPath.row]
         
-        if post.postImageFile != nil {
-            let cell = tableView.dequeueReusableCellWithIdentifier("PostCellWithImage", forIndexPath: indexPath) as! PostTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("DisplayCell", forIndexPath: indexPath) as! DisplayCell
             cell.post = post
             cell.delegate = self
-            return cell
+        
+        if interest.isDesided == false {
+        
+        
+        if indexPath.row == 0 {
+            max = cell.post.numberOfLikes
+            
+            cell.mostLiked()
+        } else if cell.post.numberOfLikes == max{
+         cell.mostLiked()
+            
+        
+            }
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("PostCellWithoutImage", forIndexPath: indexPath) as! PostTableViewCell
-            cell.post = post
-            cell.delegate = self
-            return cell
+            cell.selectedView()
         }
+        
+            return cell
     }
-    
 }
+
 
 extension InterestViewController : UITableViewDelegate
 {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.performSegueWithIdentifier("Show Comments", sender: self.posts[indexPath.row])
+        
+        
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+       
     }
+    
+
+
 }
 
 extension InterestViewController : UIScrollViewDelegate
@@ -213,11 +324,12 @@ extension InterestViewController : UIScrollViewDelegate
 extension InterestViewController : InterestHeaderViewDelegate
 {
     func closeButtonClicked() {
+        Post.init()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
-extension InterestViewController : PostTableViewCellDelegate
+extension InterestViewController : DisplayCellDelegate
 {
     func commentButtonClicked(post: Post)
     {

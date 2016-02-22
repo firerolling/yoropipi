@@ -5,6 +5,8 @@
 
 target 'Interests' do
 pod 'DOFavoriteButton'
+pod 'ChameleonFramework/Swift'
+pod 'SCLAlertView'
 end
 
 target 'InterestsTests' do

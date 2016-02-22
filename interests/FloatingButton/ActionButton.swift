@@ -58,7 +58,7 @@ public class ActionButton: NSObject {
         self.floatButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         self.floatButton.layer.shadowColor = UIColor.grayColor().CGColor
         self.floatButton.setTitle("+", forState: .Normal)
-        self.floatButton.backgroundColor = UIColor(red: 238.0/255.0, green: 130.0/255.0, blue: 34.0/255.0, alpha:1.0)
+        self.floatButton.backgroundColor = UIColor(hex: "#36D7B7")
         self.floatButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
         self.floatButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Light", size: 35)
         self.floatButton.userInteractionEnabled = true
